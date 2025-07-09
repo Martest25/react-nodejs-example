@@ -26,11 +26,10 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
-                    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                    docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                        docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                        echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
                     """
-                    }
                 }
             }
         }
