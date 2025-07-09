@@ -1,4 +1,4 @@
-pipeline
+pipeline {
     agent any
     tools{
         NodeJS 'NodeJS-24.2.0'
@@ -14,3 +14,4 @@ pipeline
             }
         }
     }
+}
