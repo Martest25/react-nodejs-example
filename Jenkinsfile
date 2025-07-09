@@ -5,7 +5,7 @@ pipeline {
     }
 
     stages {
-        stage (Testing Node and NPM) {
+        stage ('Testing Node and NPM') {
             steps {
                 script{
                     sh 'node -v'
