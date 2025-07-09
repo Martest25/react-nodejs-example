@@ -8,8 +8,6 @@ pipeline {
     environment {
         IMAGE_NAME = 'martest25/react-nodejs-example'
         IMAGE_TAG = 'latest'
-        DOCKER_USERNAME = credentials('docker-hub').username
-        DOCKER_PASSWORD = credentials('docker-hub').password
     }
 
     stages {
@@ -25,11 +23,13 @@ pipeline {
         stage('Docker build and push') {
             steps {
                 script {
-                    sh """
-                        docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
-                        echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
-                    """
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh """
+                            echo \$PASS | docker login -u \$USER --password-stdin
+                            docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                        """
+                    }
                 }
             }
         }
