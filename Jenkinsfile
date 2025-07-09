@@ -23,7 +23,7 @@ pipeline {
         stage('Docker build and push') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh """
                             echo \$PASS | docker login -u \$USER --password-stdin
                             docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
