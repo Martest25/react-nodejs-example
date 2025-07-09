@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'martest25/react-nodejs-example'
+        IMAGE_NAME = 'martest25/demo-app'
         IMAGE_TAG = 'latest'
     }
 
